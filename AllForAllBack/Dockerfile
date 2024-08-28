@@ -13,7 +13,7 @@ COPY . .
 WORKDIR "/src/AllForAllBack"
 RUN dotnet build "./AllForAllBack.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# Etapa de publicación
+# Etapa de publicació
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./AllForAllBack.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
