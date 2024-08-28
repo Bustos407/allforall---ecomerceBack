@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\busto\\OneDrive\\Escritorio\\Proyecto AllForAll\\back\\AllForAllBack\\AllForAllBack\\AllForAllBack.csproj": {}
+    "C:\\Users\\busto\\OneDrive\\Escritorio\\Back Project\\AllForAllBack\\AllForAllBack.csproj": {}
   },
   "projects": {
-    "C:\\Users\\busto\\OneDrive\\Escritorio\\Proyecto AllForAll\\back\\AllForAllBack\\AllForAllBack\\AllForAllBack.csproj": {
+    "C:\\Users\\busto\\OneDrive\\Escritorio\\Back Project\\AllForAllBack\\AllForAllBack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\busto\\OneDrive\\Escritorio\\Proyecto AllForAll\\back\\AllForAllBack\\AllForAllBack\\AllForAllBack.csproj",
+        "projectUniqueName": "C:\\Users\\busto\\OneDrive\\Escritorio\\Back Project\\AllForAllBack\\AllForAllBack.csproj",
         "projectName": "AllForAllBack",
-        "projectPath": "C:\\Users\\busto\\OneDrive\\Escritorio\\Proyecto AllForAll\\back\\AllForAllBack\\AllForAllBack\\AllForAllBack.csproj",
+        "projectPath": "C:\\Users\\busto\\OneDrive\\Escritorio\\Back Project\\AllForAllBack\\AllForAllBack.csproj",
         "packagesPath": "C:\\Users\\busto\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\busto\\OneDrive\\Escritorio\\Proyecto AllForAll\\back\\AllForAllBack\\AllForAllBack\\obj\\",
+        "outputPath": "C:\\Users\\busto\\OneDrive\\Escritorio\\Back Project\\AllForAllBack\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -53,6 +53,10 @@
             "Microsoft.AspNet.Cors": {
               "target": "Package",
               "version": "[5.3.0, )"
+            },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.20.1, )"
             },
             "MySql.EntityFrameworkCore": {
               "target": "Package",
