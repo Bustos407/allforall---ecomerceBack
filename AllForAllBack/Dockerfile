@@ -1,26 +1,24 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
-#For more information, please see https://aka.ms/containercompat
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-nanoserver-1809 AS base
+# Etapa base para ejecutar la aplicación
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
+EXPOSE 80  # Cambiado de 8080 y 8081 a 80
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
+# Etapa de construcción
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["AllForAllBack/AllForAllBack.csproj", "AllForAllBack/"]
 RUN dotnet restore "./AllForAllBack/AllForAllBack.csproj"
 COPY . .
 WORKDIR "/src/AllForAllBack"
-RUN dotnet build "./AllForAllBack.csproj" -c %BUILD_CONFIGURATION% -o /app/build
+RUN dotnet build "./AllForAllBack.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
+# Etapa de publicación
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./AllForAllBack.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./AllForAllBack.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
+# Etapa final para ejecutar la aplicación
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
