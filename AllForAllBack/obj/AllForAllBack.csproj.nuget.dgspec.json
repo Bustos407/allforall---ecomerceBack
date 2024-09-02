@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\busto\\OneDrive\\Escritorio\\allforall---ecomerceBack\\AllForAllBack\\AllForAllBack.csproj": {}
+    "C:\\Users\\busto\\OneDrive\\Escritorio\\Back Proyect\\allforall---ecomerceBack\\AllForAllBack\\AllForAllBack.csproj": {}
   },
   "projects": {
-    "C:\\Users\\busto\\OneDrive\\Escritorio\\allforall---ecomerceBack\\AllForAllBack\\AllForAllBack.csproj": {
+    "C:\\Users\\busto\\OneDrive\\Escritorio\\Back Proyect\\allforall---ecomerceBack\\AllForAllBack\\AllForAllBack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\busto\\OneDrive\\Escritorio\\allforall---ecomerceBack\\AllForAllBack\\AllForAllBack.csproj",
+        "projectUniqueName": "C:\\Users\\busto\\OneDrive\\Escritorio\\Back Proyect\\allforall---ecomerceBack\\AllForAllBack\\AllForAllBack.csproj",
         "projectName": "AllForAllBack",
-        "projectPath": "C:\\Users\\busto\\OneDrive\\Escritorio\\allforall---ecomerceBack\\AllForAllBack\\AllForAllBack.csproj",
+        "projectPath": "C:\\Users\\busto\\OneDrive\\Escritorio\\Back Proyect\\allforall---ecomerceBack\\AllForAllBack\\AllForAllBack.csproj",
         "packagesPath": "C:\\Users\\busto\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\busto\\OneDrive\\Escritorio\\allforall---ecomerceBack\\AllForAllBack\\obj\\",
+        "outputPath": "C:\\Users\\busto\\OneDrive\\Escritorio\\Back Proyect\\allforall---ecomerceBack\\AllForAllBack\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QCW70Ixd1l0=",
+  "dgSpecHash": "LZXteq7xPG8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\busto\\OneDrive\\Escritorio\\allforall---ecomerceBack\\AllForAllBack\\AllForAllBack.csproj",
+  "projectFilePath": "C:\\Users\\busto\\OneDrive\\Escritorio\\Back Proyect\\allforall---ecomerceBack\\AllForAllBack\\AllForAllBack.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\busto\\.nuget\\packages\\bouncycastle.cryptography\\2.3.1\\bouncycastle.cryptography.2.3.1.nupkg.sha512",
     "C:\\Users\\busto\\.nuget\\packages\\google.protobuf\\3.26.1\\google.protobuf.3.26.1.nupkg.sha512",
