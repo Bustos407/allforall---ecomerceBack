@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace AllForAllBack.Data
 {
@@ -20,6 +21,13 @@ namespace AllForAllBack.Data
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Empresa> Empresas { get; set; }
+        public DbSet<MisCompras> MisCompras { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<MisCompras>()
+                .HasKey(m => m.CompraId); // Asegúrate de que la clave primaria esté configurada
+        }
 
         public async Task<Usuario> GetUsuarioByIdAsync(int usuarioId)
         {
@@ -159,7 +167,7 @@ namespace AllForAllBack.Data
             return productos.FirstOrDefault();
         }
 
-        public async Task CrearProductoAsync(string nombre, decimal precio, int categoriaId, int empresaId, int cantidad, string descripcion, string imagen)
+        public async Task CrearProductoAsync(string nombre, decimal precio, int categoriaId, int empresaId, int cantidad, string descripcion, string imagen, string codProducto)
         {
             try
             {
@@ -170,9 +178,11 @@ namespace AllForAllBack.Data
                 var cantidadParam = new MySqlParameter("@p_Cantidad", cantidad);
                 var descripcionParam = new MySqlParameter("@p_Descripcion", descripcion);
                 var imagenParam = new MySqlParameter("@p_Imagen", imagen);
+                var codProductoParam = new MySqlParameter("@p_CodProducto", codProducto); // Nuevo parámetro
 
-                await Database.ExecuteSqlRawAsync("CALL SP_CrearProducto(@p_Nombre, @p_Precio, @p_CategoriaId, @p_EmpresaId, @p_Cantidad, @p_Descripcion, @p_Imagen)",
-                    nombreParam, precioParam, categoriaIdParam, empresaIdParam, cantidadParam, descripcionParam, imagenParam);
+
+                await Database.ExecuteSqlRawAsync("CALL SP_CrearProducto(@p_Nombre, @p_Precio, @p_CategoriaId, @p_EmpresaId, @p_Cantidad, @p_Descripcion, @p_Imagen, @p_CodProducto)",
+                    nombreParam, precioParam, categoriaIdParam, empresaIdParam, cantidadParam, descripcionParam, imagenParam, codProductoParam);
             }
             catch (Exception ex)
             {
@@ -218,6 +228,36 @@ namespace AllForAllBack.Data
 
             return carrito;
         }
+
+
+        public async Task AgregarCompraAsync(int idProd, int userId)
+        {
+            try
+            {
+                var idProdParam = new MySqlParameter("@p_IdProd", idProd);
+                var userIdParam = new MySqlParameter("@p_UserId", userId);
+
+                await Database.ExecuteSqlRawAsync("CALL SP_AgregarCompra(@p_IdProd, @p_UserId)", idProdParam, userIdParam);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al agregar compra: {ex.Message}");
+                throw;
+            }
+        }
+        public async Task<List<MisCompras>> ObtenerMisComprasAsync(int userId)
+        {
+            var userIdParam = new MySqlParameter("@p_UserId", userId);
+
+            // Usa `FromSqlRaw` en el DbSet correspondiente
+            var misCompras = await MisCompras
+                .FromSqlRaw("CALL SP_ObtenerMisCompras(@p_UserId)", userIdParam)
+                .ToListAsync();
+
+            return misCompras;
+        }
+
+
 
     }
 }

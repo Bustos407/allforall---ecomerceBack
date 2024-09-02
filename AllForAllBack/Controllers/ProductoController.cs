@@ -65,7 +65,7 @@ namespace AllForAllBack.Controllers
 
             try
             {
-                await _context.CrearProductoAsync(dto.Nombre, dto.Precio, dto.CategoriaId, dto.EmpresaId, dto.Cantidad, dto.Descripcion, dto.Imagen);
+                await _context.CrearProductoAsync(dto.Nombre, dto.Precio, dto.CategoriaId, dto.EmpresaId, dto.Cantidad, dto.Descripcion, dto.Imagen, dto.CodProducto);
                 return Ok("Producto creado exitosamente.");
             }
             catch (Exception ex)

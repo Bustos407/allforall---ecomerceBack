@@ -8,6 +8,7 @@
         public int EmpresaId { get; set; }
         public int Cantidad { get; set; }
         public string Descripcion { get; set; }
-        public string Imagen { get; set; } // Nuevo campo
+        public string? Imagen { get; set; }
+        public string CodProducto { get; set; }
     }
 }
