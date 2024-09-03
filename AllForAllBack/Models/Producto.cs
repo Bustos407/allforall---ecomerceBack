@@ -9,9 +9,9 @@
         public int EmpresaId { get; set; }
         public int Cantidad { get; set; }
         public string? Descripcion { get; set; }
-        public string? Imagen { get; set; } 
-        public string? COD_PRODUCTO { get; set; }
-        public int Prod_Vendidos { get; set; }
+        public string? Imagen { get; set; }
+        public string? CodProducto { get; set; }  
+        public int ProdVendidos { get; set; }
     }
 }
 
