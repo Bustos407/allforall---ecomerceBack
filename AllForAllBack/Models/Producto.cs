@@ -12,6 +12,8 @@
         public string? Imagen { get; set; }
         public string? CodProducto { get; set; }  
         public int ProdVendidos { get; set; }
+        public string? CategoriaNombre { get; set; }
+        public string? EmpresaNombre { get; set; }
     }
 }
 

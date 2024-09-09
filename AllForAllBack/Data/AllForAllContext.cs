@@ -22,6 +22,8 @@ namespace AllForAllBack.Data
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Empresa> Empresas { get; set; }
         public DbSet<MisCompras> MisCompras { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -148,13 +150,15 @@ namespace AllForAllBack.Data
         }
 
 
-        public async Task<List<Producto>> GetProductosPorCategoriaAsync(int categoriaId)
+        public async Task<List<Producto>> GetProductosPorCategoriaAsync(string categoriaNombre)
         {
-            var categoriaIdParam = new MySqlParameter("@categoriaId", categoriaId);
+            var categoriaNombreParam = new MySqlParameter("@categoriaNombre", categoriaNombre);
+
             return await Productos
-                .FromSqlRaw("CALL SP_ProductosPorCategoria(@categoriaId)", categoriaIdParam)
+                .FromSqlRaw("CALL SP_ProductosPorCategoria(@categoriaNombre)", categoriaNombreParam)
                 .ToListAsync();
         }
+
 
         public async Task<Producto> GetProductoByIdAsync(int productoId)
         {
@@ -255,6 +259,13 @@ namespace AllForAllBack.Data
                 .ToListAsync();
 
             return misCompras;
+        }
+
+        public async Task<List<Categoria>> GetCategoriasAsync()
+        {
+            return await Categorias
+                .FromSqlRaw("CALL SP_ObtenerCategorias()")
+                .ToListAsync();
         }
 
 

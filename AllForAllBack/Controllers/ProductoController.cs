@@ -19,15 +19,15 @@ namespace AllForAllBack.Controllers
         }
 
         // GET: api/Productos/Categoria/{categoriaId}
-        [HttpGet("Categoria/{categoriaId}")]
-        public async Task<ActionResult<IEnumerable<Producto>>> GetProductosPorCategoria(int categoriaId)
+        [HttpGet("Categoria/{categoriaNombre}")]
+        public async Task<ActionResult<IEnumerable<Producto>>> GetProductosPorCategoria(string categoriaNombre)
         {
             try
             {
-                var productos = await _context.GetProductosPorCategoriaAsync(categoriaId);
+                var productos = await _context.GetProductosPorCategoriaAsync(categoriaNombre);
                 if (productos == null || !productos.Any())
                 {
-                    return NotFound($"No se encontraron productos para la categoría con ID {categoriaId}.");
+                    return NotFound($"No se encontraron productos para la categoría '{categoriaNombre}'.");
                 }
 
                 return Ok(productos);
@@ -39,6 +39,7 @@ namespace AllForAllBack.Controllers
                 return StatusCode(500, $"Error al obtener productos por categoría: {ex.Message}");
             }
         }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProducto(int id)
