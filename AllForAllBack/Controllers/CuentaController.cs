@@ -16,19 +16,32 @@ namespace AllForAllBack.Controllers
             _context = context;
         }
 
+
         [HttpPost("IniciarSesion")]
         public async Task<ActionResult<int>> IniciarSesion([FromBody] LoginRequest loginRequest)
         {
-            var resultado = await _context.IniciarSesionAsync(loginRequest.Email, loginRequest.Password);
-            if (resultado == 1)
+            try
             {
-                return Ok(resultado); // 1 indica inicio de sesión exitoso
+                var resultado = await _context.IniciarSesionAsync(loginRequest.Email, loginRequest.Password);
+                if (resultado == 0)
+                {
+                    return Unauthorized("La cuenta no existe"); // 0 indica inicio de sesión fallido
+                }
+                else
+                {
+                    return Ok(resultado); // 1, 2 o 3 indica el rol del usuario
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return Unauthorized("La cuenta no existe"); // 0 indica inicio de sesión fallido
+                // Manejo de errores y registro del log
+                Console.WriteLine($"Error al iniciar sesión: {ex.Message}");
+                return StatusCode(500, $"Error al iniciar sesión: {ex.Message}");
             }
         }
+
+
+
 
         [HttpPost("CrearCuenta")]
         public async Task<ActionResult> CrearCuenta([FromBody] CrearCuentaRequest crearCuentaRequest)

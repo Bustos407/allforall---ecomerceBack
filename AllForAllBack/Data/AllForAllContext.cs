@@ -63,7 +63,7 @@ namespace AllForAllBack.Data
         public async Task<int> IniciarSesionAsync(string email, string password)
         {
             var emailParam = new MySqlParameter("@p_email", email);
-            var passwordParam = new MySqlParameter("@p_password", HashPassword(password)); // Hashea la contraseña aquí
+            var passwordParam = new MySqlParameter("@p_password", HashPassword(password));
             var resultadoParam = new MySqlParameter
             {
                 ParameterName = "@p_resultado",
@@ -71,10 +71,24 @@ namespace AllForAllBack.Data
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            await Database.ExecuteSqlRawAsync("CALL sp_IniciarSesion(@p_email, @p_password, @p_resultado)", emailParam, passwordParam, resultadoParam);
-
-            return (int)resultadoParam.Value;
+            try
+            {
+                await Database.ExecuteSqlRawAsync("CALL sp_IniciarSesion(@p_email, @p_password, @p_resultado)", emailParam, passwordParam, resultadoParam);
+                int resultado = (int)resultadoParam.Value;
+                Console.WriteLine($"Email: {email}, Password Hash: {HashPassword(password)}, Resultado: {resultado}");
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al ejecutar el procedimiento almacenado: {ex.Message}");
+                throw; // O maneja la excepción según lo necesites
+            }
         }
+
+
+
+
+
 
         public async Task CrearCuentaYUsuarioAsync(string email, string password, string rol, string imagen,
                                             string nombre, string apellido, string telefono, string cedula,
