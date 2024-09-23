@@ -14,4 +14,10 @@
         public string Direccion { get; set; }
 
     }
+
+    public class UsuarioIdResult
+    {
+        public int UsuarioID { get; set; }
+    }
+
 }

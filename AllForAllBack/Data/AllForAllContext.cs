@@ -23,12 +23,16 @@ namespace AllForAllBack.Data
         public DbSet<Empresa> Empresas { get; set; }
         public DbSet<MisCompras> MisCompras { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<UsuarioIdResult> UsuarioIdResults { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<MisCompras>()
                 .HasKey(m => m.CompraId); // Asegúrate de que la clave primaria esté configurada
+
+            modelBuilder.Entity<UsuarioIdResult>()
+            .HasNoKey(); // Indica que esta entidad no tiene clave primaria
         }
 
         public async Task<Usuario> GetUsuarioByIdAsync(int usuarioId)
@@ -84,6 +88,21 @@ namespace AllForAllBack.Data
                 throw; // O maneja la excepción según lo necesites
             }
         }
+
+
+
+        public async Task<int?> ObtenerUsuarioIdPorEmailAsync(string email)
+        {
+            var emailParam = new MySqlParameter("@p_email", email);
+
+            var usuarioIdResults = await UsuarioIdResults
+                .FromSqlRaw("CALL SP_GetUsuarioIdByEmail(@p_email)", emailParam)
+                .ToListAsync();
+
+            return usuarioIdResults.FirstOrDefault()?.UsuarioID; // Retorna el ID o null
+        }
+
+
 
 
 

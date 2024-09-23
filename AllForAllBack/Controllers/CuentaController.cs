@@ -2,6 +2,7 @@
 using AllForAllBack.Data;
 using AllForAllBack.Models;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace AllForAllBack.Controllers
 {
@@ -41,6 +42,28 @@ namespace AllForAllBack.Controllers
         }
 
 
+        [HttpGet("ObtenerUsuarioPorEmail")]
+        public async Task<ActionResult<int?>> ObtenerUsuarioPorEmail([FromQuery] string email)
+        {
+            try
+            {
+                var usuarioId = await _context.ObtenerUsuarioIdPorEmailAsync(email);
+                if (usuarioId.HasValue)
+                {
+                    return Ok(usuarioId.Value);
+                }
+                else
+                {
+                    return NotFound("Usuario no encontrado");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener el ID del usuario: {ex.Message}");
+                return StatusCode(500, $"Error al obtener el ID del usuario: {ex.Message}");
+            }
+        }
+
 
 
         [HttpPost("CrearCuenta")]
@@ -64,7 +87,8 @@ namespace AllForAllBack.Controllers
 
     }
 
-    public class LoginRequest
+
+public class LoginRequest
     {
         public string Email { get; set; }
         public string Password { get; set; }
