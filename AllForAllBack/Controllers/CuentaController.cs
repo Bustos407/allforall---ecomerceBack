@@ -42,9 +42,14 @@ namespace AllForAllBack.Controllers
         }
 
 
-        [HttpGet("ObtenerUsuarioPorEmail")]
-        public async Task<ActionResult<int?>> ObtenerUsuarioPorEmail([FromQuery] string email)
+        [HttpGet("ObtenerUsuarioPorEmail/{email}")]
+        public async Task<ActionResult<int?>> ObtenerUsuarioPorEmail([FromRoute] string email)
         {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return BadRequest("El email no puede estar vacío");
+            }
+
             try
             {
                 var usuarioId = await _context.ObtenerUsuarioIdPorEmailAsync(email);
@@ -60,9 +65,10 @@ namespace AllForAllBack.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine($"Error al obtener el ID del usuario: {ex.Message}");
-                return StatusCode(500, $"Error al obtener el ID del usuario: {ex.Message}");
+                return StatusCode(500, $"Ocurrió un error interno al procesar la solicitud");
             }
         }
+
 
 
 

@@ -93,13 +93,16 @@ namespace AllForAllBack.Data
 
         public async Task<int?> ObtenerUsuarioIdPorEmailAsync(string email)
         {
+            // Crea el parámetro MySQL para el correo electrónico
             var emailParam = new MySqlParameter("@p_email", email);
 
-            var usuarioIdResults = await UsuarioIdResults
+            // Ejecuta el procedimiento almacenado y captura los resultados
+            var usuarioIdResults = await this.Set<UsuarioIdResult>()
                 .FromSqlRaw("CALL SP_GetUsuarioIdByEmail(@p_email)", emailParam)
                 .ToListAsync();
 
-            return usuarioIdResults.FirstOrDefault()?.UsuarioID; // Retorna el ID o null
+            // Devuelve el ID del usuario o null si no se encuentra
+            return usuarioIdResults.FirstOrDefault()?.UsuarioID;
         }
 
 
